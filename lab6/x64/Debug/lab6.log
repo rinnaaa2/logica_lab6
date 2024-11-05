@@ -1,3 +1,3 @@
 ﻿  lab6.cpp
-C:\Users\Марина\Desktop\lab6\lab6.cpp(197,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\Марина\Desktop\lab6\lab6.cpp(228,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
   lab6.vcxproj -> C:\Users\Марина\Desktop\lab6\x64\Debug\lab6.exe

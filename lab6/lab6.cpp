@@ -192,6 +192,37 @@ int** xorG(int** G1, int** G2, int size1, int size2, int *nG5) {
 	return Gnew;
 }
 
+//Декартово произведение
+int** DekartG(int** G1, int size1, int** G2, int size2, int* nG3) {
+	int** Gnew = createG(size1 * size2);
+	*nG3 = size1 * size2;
+
+	for (int i = 0; i < size1; i++) {
+		for (int j = 0; j < size1; j++) {
+			if (G1[i][j] == 1) { // Если есть ребро в первом графе
+				for (int k = 0; k < size2; k++) {
+					// Соединяем вершины (i, k) и (j, k) в новом графе
+					Gnew[i * size2 + k][j * size2 + k] = 1;
+					Gnew[j * size2 + k][i * size2 + k] = 1;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i < size2; i++) {
+		for (int j = 0; j < size2; j++) {
+			if (G2[i][j] == 1) {
+				for (int k = 0; k < size1; k++) {
+					// Соединяем вершины (k, i) и (k, j) в новом графе
+					Gnew[k * size2 + i][k * size2 + j] = 1;
+					Gnew[k * size2 + j][k * size2 + i] = 1;
+				}
+			}
+		}
+	}
+
+	return Gnew;
+}
 int main(void)
 {
 	srand(time(0));
@@ -203,7 +234,7 @@ int main(void)
 	scanf("%d", &nG2);
 
 	printf("Выберите действие над графами:");
-	printf("\n1. Отожествление вершин\n2. Стягивание ребра\n3. Объединение\n4. Пересечение\n5. Кольцевая сумма");
+	printf("\n1. Отожествление вершин\n2. Стягивание ребра\n3. Объединение\n4. Пересечение\n5. Кольцевая сумма\n6. Декартово произведение");
 	printf("\nВведите номер выбранного действия:");
 	scanf("%d", &zapros);
 
@@ -216,7 +247,7 @@ int main(void)
 	printG(G2, nG2);
 	
 	int** GG;
-	int nG5;
+	int nG5, nG3;
 	switch (zapros)
 	{
 	case 1:
@@ -269,6 +300,11 @@ int main(void)
 		GG = xorG(G1, G2, nG1, nG2, &nG5);
 		printf("\nКольцевая сумма графов\n");
 		printG(GG, nG5);
+		break;
+	case 6:
+		GG = DekartG(G1, nG1, G2, nG2, &nG3);
+		printf("\nДекартово произведение\n");
+		printG(GG, nG3);
 		break;
 	}
 	
