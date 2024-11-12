@@ -192,30 +192,20 @@ int** xorG(int** G1, int** G2, int size1, int size2, int *nG5) {
 	return Gnew;
 }
 
-//Декартово произведение
 int** DekartG(int** G1, int size1, int** G2, int size2, int* nG3) {
-	int** Gnew = createG(size1 * size2);
-	*nG3 = size1 * size2;
-
+	int** Gnew = createG(size1 * size2); 
+	*nG3 = size1 * size2; 
+		
 	for (int i = 0; i < size1; i++) {
 		for (int j = 0; j < size1; j++) {
-			if (G1[i][j] == 1) { // Если есть ребро в первом графе
-				for (int k = 0; k < size2; k++) {
-					// Соединяем вершины (i, k) и (j, k) в новом графе
-					Gnew[i * size2 + k][j * size2 + k] = 1;
-					Gnew[j * size2 + k][i * size2 + k] = 1;
-				}
-			}
-		}
-	}
-
-	for (int i = 0; i < size2; i++) {
-		for (int j = 0; j < size2; j++) {
-			if (G2[i][j] == 1) {
-				for (int k = 0; k < size1; k++) {
-					// Соединяем вершины (k, i) и (k, j) в новом графе
-					Gnew[k * size2 + i][k * size2 + j] = 1;
-					Gnew[k * size2 + j][k * size2 + i] = 1;
+			for (int k = 0; k < size2; k++) {
+				for (int l = 0; l < size2; l++) {
+					if ((i == j) && (G2[k][l] == 1)) {
+						Gnew[k * size2 + j][l * size2 + i] = 1;
+					}
+					if ((k == l) && (G1[i][j]) == 1) {
+						Gnew[l * size2 + j][k * size2 + i] = 1;
+					}
 				}
 			}
 		}
@@ -270,7 +260,7 @@ int main(void)
 	case 2:
 		printf("С каким графом будем работать?(введите номер): ");
 		scanf("%d", &numb);
-		printf("Введите номера вершин для отожествления: ");
+		printf("Введите номера вершин для стягивания ребра(через пробел): ");
 		scanf("%d %d", &v1, &v2);
 		if (numb == 1)
 		{
